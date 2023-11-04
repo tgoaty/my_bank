@@ -9,19 +9,26 @@ class Bank:
         self.count_of_code = 1
 
     def create_account(self):
+        import random
         """
         Создает новый банковский счет с уникальным номером.
         """
-        self.accounts[self.count_of_code] = 0
+        self.accounts[str(self.count_of_code)] = 0
         print(f'Account {self.count_of_code} was created.')
-        self.count_of_code += 1
+        self.count_of_code += random.randint(1, 10)
 
     def set_balance(self, account_number, amount):
         """
         Устанавливает баланс указанного счета.
         """
-        self.accounts[account_number] = amount
-        print(f'Account {account_number} got balance: {amount}.')
+        amount = int(amount)
+        if account_number.lower() == 'all':
+            for v, k in self.accounts.items():
+                self.accounts[v] = k + amount
+                print(f'Account {v} got balance: {k + amount}.')
+        else:
+            self.accounts[account_number] = amount
+            print(f'Account {account_number} got balance: {amount}.')
 
     def get_balance(self, account_number):
         """
@@ -35,6 +42,7 @@ class Bank:
         """
         Переводит средства с одного счета на другой.
         """
+        amount = int(amount)
         if self.accounts[from_account] < amount:
             print(f'Account {from_account} does not have enough money.')
         else:
@@ -53,43 +61,16 @@ class Bank:
         """
         Пополняет счет указанной суммой.
         """
+        amount = int(amount)
         self.accounts[account_number] += amount
 
     def lose_money(self, account_number, amount):
         """
         Снимает указанную сумму со счета.
         """
+        amount = int(amount)
         if self.accounts[account_number] < amount:
             print(f'Account {account_number} does not have enough money.')
         else:
             self.accounts[account_number] -= amount
 
-
-my_bank = Bank('Tinkon')
-while True:
-    message = input('Command: ')
-    if message == 'q':
-        break
-    elif message == 'ca':
-        my_bank.create_account()
-    elif message == 'sb':
-        account_number = int(input('Account number: '))
-        amount = int(input('Amount: '))
-        my_bank.set_balance(account_number, amount)
-    elif message == 'tm':
-        from_account = int(input('From account number: '))
-        to_account = int(input('To account number: '))
-        amount = int(input('Amount: '))
-        my_bank.transfer_money(from_account, to_account, amount)
-    elif message == 'la':
-        my_bank.list_accounts()
-    elif message == 'gm':
-        account_number = int(input('Account number: '))
-        amount = int(input('Amount: '))
-        my_bank.get_money(account_number, amount)
-    elif message == 'lm':
-        account_number = int(input('Account number: '))
-        amount = int(input('Amount: '))
-        my_bank.lose_money(account_number, amount)
-    else:
-        print('Invalid command.')
