@@ -22,14 +22,18 @@ class Bank:
         """
         Устанавливает баланс указанного счета.
         """
-        amount = int(amount)
-        if account_number.lower() == 'all':
-            for v, k in self.accounts.items():
-                self.accounts[v] = k + amount
-                print(f'Account {v} got balance: {k + amount}.')
+        if amount.isdigit():
+            amount = int(amount)
+            if account_number.lower() == 'all':
+                for v, k in self.accounts.items():
+                    self.accounts[v] = k + amount
+                    print(f'Account {v} got balance: {k + amount}.')
+            else:
+                self.accounts[account_number] = amount
+                print(f'Account {account_number} got balance: {amount}.')
         else:
-            self.accounts[account_number] = amount
-            print(f'Account {account_number} got balance: {amount}.')
+            print('Invalid amount.')
+            pass
 
     def get_balance(self, account_number):
         """
@@ -49,12 +53,16 @@ class Bank:
         """
         Переводит средства с одного счета на другой.
         """
-        amount = int(amount)
-        if self.accounts[from_account] < amount:
-            print(f'Account {from_account} does not have enough money.')
+        if amount.isdigit():
+            amount = int(amount)
+            if self.accounts[from_account] < amount:
+                print(f'Account {from_account} does not have enough money.')
+            else:
+                self.accounts[from_account] -= amount
+                self.accounts[to_account] += amount
         else:
-            self.accounts[from_account] -= amount
-            self.accounts[to_account] += amount
+            print('Invalid amount.')
+            pass
 
     def list_accounts(self):
         """
@@ -68,16 +76,25 @@ class Bank:
         """
         Пополняет счет указанной суммой.
         """
-        amount = int(amount)
-        self.accounts[account_number] += amount
+        if amount.isdigit():
+            amount = int(amount)
+            self.accounts[account_number] += amount
+        else:
+            print('Invalid amount.')
+            pass
+        self.capital_balance()
 
     def lose_money(self, account_number, amount):
         """
         Снимает указанную сумму со счета.
         """
-        amount = int(amount)
-        if self.accounts[account_number] < amount:
-            print(f'Account {account_number} does not have enough money.')
+        if amount.isdigit():
+            amount = int(amount)
+            if self.accounts[account_number] < amount:
+                print(f'Account {account_number} does not have enough money.')
+            else:
+                self.accounts[account_number] -= amount
         else:
-            self.accounts[account_number] -= amount
-
+            print('Invalid amount.')
+            pass
+        self.capital_balance()

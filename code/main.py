@@ -3,6 +3,17 @@ from main_class import Bank
 
 def process():
     my_bank = Bank('Tinkon')
+    print("""
+    1. Create account = ca
+    2. Create accounts = ca*num
+    3. Set balance = sb (all)
+    4. Transfer money = tm
+    5. List accounts = la
+    6. Get money = gm
+    7. Lose money = lm
+    8. Capital balance = cb
+    9. Quit = q
+    """)
     while True:
         message = input('Command: ').lower()
         if message == 'q':
