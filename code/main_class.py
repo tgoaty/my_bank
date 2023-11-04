@@ -7,6 +7,7 @@ class Bank:
         self.name = name
         self.accounts = {}
         self.count_of_code = 1
+        self.capital = 0
 
     def create_account(self):
         import random
@@ -36,7 +37,13 @@ class Bank:
         """
         balance = self.accounts[account_number]
         print(f'{account_number} balance: {self.accounts[account_number]}')
-        return balance
+
+    def capital_balance(self):
+        """
+        Возвращает баланс банка.
+        """
+        self.capital = sum([k for k in self.accounts.values()])
+        print(f'Capital balance: {self.capital}')
 
     def transfer_money(self, from_account, to_account, amount):
         """

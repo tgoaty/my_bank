@@ -1,2 +1,2 @@
 # my_bank
- code of virual bank
+ code of virtual bank

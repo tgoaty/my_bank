@@ -39,6 +39,9 @@ def process():
             amount = input('Amount: ')
             my_bank.lose_money(account_number, amount)
 
+        elif message == 'cb':
+            my_bank.capital_balance()
+
         else:
             print('Invalid command.')
 
